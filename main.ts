@@ -1,4 +1,4 @@
-namespace Servo_Advaune {
+namespace Emperor_Chun_Forec {
 
     // เก็บองศาปัจจุบันแยกตามแต่ละพิน แทน currentAngle ตัวเดียวที่ใช้ร่วมกันผิด ๆ
     let angleState: number[] = []
