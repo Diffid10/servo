@@ -38,11 +38,11 @@ namespace Emperor_Chun_Forec {
         if (end > 180) end = 180
         if (end < 0) end = 0
 
-        let start = getCurrentAngle(pin)   // ✅ ใช้ตำแหน่งจริงปัจจุบันเสมอ กันกระตุกตอนเริ่ม
+        let start = getCurrentAngle(pin)   //  ใช้ตำแหน่งจริงปัจจุบันเสมอ กันกระตุกตอนเริ่ม
         let steps = Math.abs(Math.round(end - start))
         if (steps == 0) return
 
-        if (time <= 0) {   // ✅ กัน time<=0 ทำให้ pause แปลก ๆ
+        if (time <= 0) {   //  กัน time<=0 ทำให้ pause แปลก ๆ
             pins.servoWritePin(pin, end)
             angleState[pin] = end
             return
@@ -53,26 +53,26 @@ namespace Emperor_Chun_Forec {
         for (let i = 0; i <= steps; i++) {
             let t = i / steps
             let ease = t * t * (3 - 2 * t)   // smoothstep
-            let angle = start + (end - start) * ease
+            let angle = Math.round(start + (end - start) * ease)   // ปัดเป็นจำนวนเต็มก่อนส่ง
             pins.servoWritePin(pin, angle)
 
-            // ✅ เทียบเวลาจริงแทนหาร time/steps ตรง ๆ กัน drift สะสม
+            //  เทียบเวลาจริงแทนหาร time/steps ตรง ๆ กัน drift สะสม
             let targetElapsed = (time * i) / steps
             let actualElapsed = input.runningTime() - startTime
             let waitMs = targetElapsed - actualElapsed
             if (waitMs > 0) basic.pause(waitMs)
         }
 
-        angleState[pin] = end   // ✅ อัปเดต state ให้ moveRelative ครั้งถัดไปคำนวณถูก
+        angleState[pin] = end   //  อัปเดต state ให้ moveRelative ครั้งถัดไปคำนวณถูก
     }
 
     //% blockId=servo_tune
     //% block="set servo %pin by buttons (A=+, B=-, A+B=ok)"
     //% weight=110
     export function tuneServo(pin: AnalogPin): number {
-        // ⚠️ ควรเรียกฟังก์ชันนี้แค่ครั้งเดียวต่อพินตอน setup/calibration
+        //  ควรเรียกฟังก์ชันนี้แค่ครั้งเดียวต่อพินตอน setup/calibration
         // (MakeCode ไม่มี API ถอด handler — เรียกซ้ำจะสะสม handler เก่าไว้เรื่อย ๆ)
-        let angle2 = getCurrentAngle(pin)   // ✅ เริ่มจากตำแหน่งจริง ไม่ใช่ 90 ตายตัว
+        let angle2 = getCurrentAngle(pin)   //  เริ่มจากตำแหน่งจริง ไม่ใช่ 90 ตายตัว
         let done = false
 
         pins.servoWritePin(pin, angle2)
@@ -104,7 +104,7 @@ namespace Emperor_Chun_Forec {
             basic.pause(50)
         }
 
-        angleState[pin] = angle2   // ✅ บันทึกผลจูนกลับเข้า state กลาง
+        angleState[pin] = angle2   //  บันทึกผลจูนกลับเข้า state กลาง
         return angle2
     }
 }
