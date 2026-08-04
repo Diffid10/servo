@@ -1,5 +1,5 @@
 {
-    "name": "Servo - Copy - Copy",
+    "name": "Servo_Smooth",
     "description": "",
     "dependencies": {
         "core": "*",
@@ -21,5 +21,5 @@
     "supportedTargets": [
         "microbit"
     ],
-    "preferredEditor": "tsprj"
+    "preferredEditor": "blocksprj"
 }
