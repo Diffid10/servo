@@ -1,5 +1,5 @@
 {
-    "name": "Servo",
+    "name": "Servo - Copy - Copy",
     "description": "",
     "dependencies": {
         "core": "*",
@@ -15,7 +15,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "8.0.21",
+        "target": "9.0.8",
         "targetId": "microbit"
     },
     "supportedTargets": [
